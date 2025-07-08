@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Xác Nhận Sinh Nhật</title>
+  <meta name="viewport" content="width=900, initial-scale=1.0">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #e91e63;
+      --secondary: #4CAF50;
+      --danger: #f44336;
+      --bg: #fff;
+      --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+      --radius: 18px;
+      --transition: 0.3s cubic-bezier(.4,2,.6,1);
+      --input-bg: #f3f3f7;
+      --input-border: #e0e0e0;
+      --label: #555;
+      --text: #222;
+      --muted: #888;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: var(--bg);
+    }
+    .container {
+      background: var(--bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 48px 40px 36px 40px;
+      width: 900px;
+      max-width: 98vw;
+      position: relative;
+      transition: box-shadow var(--transition);
+      animation: fadeIn 1s;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: none;}
+    }
+    h1#tieuDe {
+      color: var(--primary);
+      font-size: 2.2em;
+      font-weight: 700;
+      margin-bottom: 28px;
+      letter-spacing: 1px;
+      text-align: left;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    h1#tieuDe i {
+      font-size: 1.1em;
+      color: var(--secondary);
+    }
+    .info-section {
+      margin-bottom: 28px;
+      text-align: left;
+      width: 100%;
+      max-width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    label {
+      font-weight: 600;
+      color: var(--label);
+      margin-bottom: 7px;
+      display: block;
+      font-size: 1em;
+      letter-spacing: 0.2px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 13px 16px;
+      margin-bottom: 18px;
+      border: 1.5px solid var(--input-border);
+      border-radius: 8px;
+      background: var(--input-bg);
+      font-size: 1em;
+      color: var(--text);
+      outline: none;
+      transition: border-color var(--transition), box-shadow var(--transition);
+      box-sizing: border-box;
+    }
+    input[type="text"]:focus, input[type="password"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px #e91e6333;
+    }
+    .btn {
+      font-size: 1.1em;
+      padding: 14px 32px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      box-shadow: 0 2px 8px 0 rgba(233,30,99,0.08);
+      display: inline-block;
+    }
+    .btn:hover, .btn:focus {
+      background: #d4145a;
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 4px 16px 0 rgba(233,30,99,0.13);
+    }
+    .btn-secondary {
+      background: var(--secondary);
+    }
+    .btn-secondary:hover, .btn-secondary:focus {
+      background: #388e3c;
+    }
+    .btn-danger {
+      background: var(--danger);
+    }
+    .btn-danger:hover, .btn-danger:focus {
+      background: #da190b;
+    }
+    .admin-login-link {
+      display: block;
+      text-align: right;
+      margin-top: 8px;
+      margin-bottom: 0;
+      font-size: 0.97em;
+    }
+    .admin-login-link a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 600;
+      transition: color var(--transition);
+    }
+    .admin-login-link a:hover {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+    #xacNhan {
+      display: none;
+      margin-top: 30px;
+      text-align: center;
+      animation: fadeIn 0.7s;
+    }
+    #xacNhan h2 {
+      color: var(--text);
+      margin-bottom: 20px;
+      font-size: 1.3em;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+    #coButton, #khongButton {
+      font-size: 1.1em;
+      padding: 14px 32px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all var(--transition);
+      margin: 10px 8px;
+      border: none;
+      font-weight: 700;
+      box-shadow: 0 2px 8px 0 rgba(76,175,80,0.08);
+    }
+    #coButton {
+      background: var(--secondary);
+      color: #fff;
+    }
+    #coButton:hover {
+      background: #388e3c;
+    }
+    #khongButton {
+      background: var(--danger);
+      color: #fff;
+    }
+    #khongButton:hover {
+      background: #da190b;
+    }
+    .popup-icon {
+      position: absolute;
+      top: 18%;
+      left: 85%;
+      transform: translate(-50%, -50%);
+      font-size: 4.5em;
+      color: var(--danger);
+      opacity: 0;
+      animation: fadeOut 2.5s forwards;
+      z-index: 10;
+      pointer-events: none;
+      filter: drop-shadow(0 2px 8px #f4433633);
+    }
+    @keyframes fadeOut {
+      from { opacity: 1;}
+      to { opacity: 0;}
+    }
+    .countdown-section {
+      text-align: center;
+      margin-bottom: 24px;
+      font-size: 1.2em;
+      color: var(--primary);
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 16px 0;
+    }
+    .reload-btn {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 12px 28px;
+      font-size: 1.1em;
+      background: var(--secondary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .reload-btn:hover {
+      background: #388e3c;
+      transform: scale(1.04);
+    }
+    /* Responsive */
+    @media (max-width: 1000px) {
+      .container {
+        width: 98vw;
+        padding: 24px 8vw 18px 8vw;
+      }
+      .info-section {
+        width: 100%;
+        max-width: 100%;
+      }
+      .popup-icon {
+        left: 70%;
+        font-size: 3em;
+      }
+    }
+    @media (max-width: 600px) {
+      .container {
+        width: 99vw;
+        padding: 12px 2vw 12px 2vw;
+      }
+      .info-section {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div id="countdownSection" class="countdown-section" style="display:none"></div>
+    <h1 id="tieuDe"><i class="fas fa-birthday-cake"></i> Xác Nhận Thông Tin</h1>
+    <div class="info-section" id="thongTin">
+      <label for="hoTen">Họ và tên:</label>
+      <input type="text" id="hoTen" autocomplete="off" placeholder="Nhập họ và tên...">
+      <label for="ngaySinh">Ngày sinh (dd/mm/yyyy):</label>
+      <input type="text" id="ngaySinh" autocomplete="off" placeholder="VD: 26/07/2010">
+      <div class="admin-login-link">
+        <a href="quantri.html"><i class="fas fa-user-shield"></i> Đăng nhập quản trị</a>
+      </div>
+    </div>
+    <button class="btn" id="kiemTraButton" onclick="kiemTraThongTin()">Kiểm tra</button>
+    <div id="xacNhan">
+      <h2>Cậu có quý chúng tớ không?</h2>
+      <button id="coButton" onclick="coClick()">Có</button>
+      <button id="khongButton" onclick="khongClick()">Không</button>
+    </div>
+    <div id="popupContainer"></div>
+  </div>
+  <script>
+    // ==== Cấu hình thời gian mở ====
+    // Thời gian mở: 06/07/2025 19:32:00 (UTC+7)
+    // new Date(year, month-1, day, hour, minute, second)
+    const moTimestamp = new Date(2025, 6, 6, 19, 32, 0).getTime();
+
+    // Ghi đè hàm showCountdown để đổi thông báo theo yêu cầu
+    function showCountdown(msg, showReload) {
+      const countdownSection = document.getElementById("countdownSection");
+      // Nếu chưa đến 3 tiếng cuối thì đổi thông báo
+      if (!showReload && msg.includes("Này chưa bắt đầu, hãy chờ và quay lại sau:")) {
+        countdownSection.style.display = "none";
+        // Hiển thị thông tin mở sự kiện
+      const openDate = new Date(moTimestamp);
+      countdownSection.innerHTML =
+        `<div style="font-size:1.15em;">
+        <b>${openDate.getHours()}:${openDate.getMinutes()<10?'0':''}${openDate.getMinutes()} ngày ${openDate.getDate()<10?'0':''}${openDate.getDate()}/${openDate.getMonth()+1<10?'0':''}${openDate.getMonth()+1}/${openDate.getFullYear()}</b><br>
+        để mở sự kiện đặc biệt này, anh em hãy chờ đón khi đồng hồ đếm ngược hết nhé!<br>
+        <span style="color:#f44336;font-size:0.98em;">LƯU Ý: Hệ thống sẽ có thể gặp vấn đề như form không hoạt động, thông báo với ad để được sửa nhé!</span>
+        </div>`;
+      } else {
+      countdownSection.innerHTML = msg;
+      if (showReload) {
+        countdownSection.innerHTML += '<br><button class="reload-btn" onclick="location.reload()">Tải lại trang</button>';
+      }
+      }
+      countdownSection.style.display = "";
+    }
+    // ==== END cấu hình ====
+
+    let coFontSize = 18;
+    let lanKhong = 0;
+    let countdownInterval = null;
+    let reloadMode = false;
+
+    function showForm() {
+      document.getElementById("thongTin").style.display = "";
+      document.getElementById("tieuDe").style.display = "";
+      document.getElementById("kiemTraButton").style.display = "";
+      document.getElementById("xacNhan").style.display = "none";
+      document.getElementById("countdownSection").style.display = "none";
+    }
+
+    function hideForm() {
+      document.getElementById("thongTin").style.display = "none";
+      document.getElementById("tieuDe").style.display = "none";
+      document.getElementById("kiemTraButton").style.display = "none";
+      document.getElementById("xacNhan").style.display = "none";
+    }
+
+    function showCountdown(msg, showReload) {
+      const countdownSection = document.getElementById("countdownSection");
+      countdownSection.innerHTML = msg;
+      if (showReload) {
+        countdownSection.innerHTML += '<br><button class="reload-btn" onclick="location.reload()">Tải lại trang</button>';
+      }
+      countdownSection.style.display = "";
+    }
+
+    function pad(n) {
+      return n < 10 ? "0" + n : n;
+    }
+
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = moTimestamp - now;
+      if (diff > 3 * 60 * 60 * 1000) {
+        // Chưa đến 3 tiếng cuối
+        const openDate = new Date(moTimestamp);
+        showCountdown(
+          `Màn trình diễn chưa bắt đầu, quay lại sau: <b>${pad(openDate.getHours())}:${pad(openDate.getMinutes())} ngày ${pad(openDate.getDate())}/${pad(openDate.getMonth()+1)}/${openDate.getFullYear()}</b>.`,
+          false
+        );
+        hideForm();
+      } else if (diff > 0) {
+        // Trong 3 tiếng cuối, đếm ngược
+        reloadMode = false;
+        let hours = Math.floor(diff / (1000 * 60 * 60));
+        let mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        let secs = Math.floor((diff % (1000 * 60)) / 1000);
+        showCountdown(
+          `Còn <b>${pad(hours)}:${pad(mins)}:${pad(secs)}</b> nữa mới có thể truy cập để tận hưởng.<br>Khi kết thúc thời gian <b>Tải lại trang</b> để khởi động lại hệ thống.`,
+          diff <= 3 * 60 * 60 * 1000 && diff > 0
+        );
+        hideForm();
+        if (diff <= 1000) {
+          // Đã hết thời gian, chuyển sang reload mode
+          clearInterval(countdownInterval);
+          reloadMode = true;
+          showCountdown(
+            `Đã đến giờ mở!<br>Ấn <b>Tải lại trang</b> để bắt đầu.`,
+            true
+          );
+        }
+      } else {
+        // Đã hết thời gian khóa, mở form
+        clearInterval(countdownInterval);
+        showForm();
+      }
+    }
+
+    // Khởi động kiểm tra thời gian
+    window.addEventListener("DOMContentLoaded", function() {
+      updateCountdown();
+      if (Date.now() < moTimestamp) {
+        countdownInterval = setInterval(updateCountdown, 1000);
+      } else {
+        showForm();
+      }
+    });
+
+    function kiemTraThongTin() {
+      const hoTen = document.getElementById("hoTen").value.trim();
+      const ngaySinh = document.getElementById("ngaySinh").value.trim();
+      if (hoTen === "Phong" && ngaySinh === "26/07/2010") {
+        document.getElementById("thongTin").style.display = "none";
+        document.getElementById("tieuDe").style.display = "none";
+        document.getElementById("kiemTraButton").style.display = "none";
+        document.getElementById("xacNhan").style.display = "block";
+      } else {
+        alert("Thông tin không chính xác.");
+      }
+    }
+
+    function coClick() {
+      window.location.href = "nhannhu.html";
+    }
+
+    function khongClick() {
+      lanKhong++;
+      coFontSize += 6 + lanKhong * 2;
+      const coButton = document.getElementById("coButton");
+      let messages = [
+        "Có đi mà",
+        "Có mà",
+        "Thật không vậy (Có)",
+        "Bạn ơi có đi,...",
+        "Đi mà, nha nha",
+        "Pleaseee",
+        "Chỉ cần Có thôi mà",
+        "Đừng bỏ tớ mà :("
+      ];
+      let randomIndex = Math.floor(Math.random() * messages.length);
+      coButton.textContent = messages[randomIndex];
+      coButton.style.fontSize = coFontSize + "px";
+      coButton.style.padding = (14 + (lanKhong * 2)) + "px " + (32 + (lanKhong * 4)) + "px";
+      // Tạo popup icon tức giận
+      const popupIcon = document.createElement("div");
+      popupIcon.classList.add("popup-icon");
+      popupIcon.innerHTML = '<i class="fas fa-angry"></i>';
+      document.querySelector(".container").appendChild(popupIcon);
+      setTimeout(() => {
+        if (popupIcon.parentNode) popupIcon.parentNode.removeChild(popupIcon);
+      }, 2500);
+      if (lanKhong > 7) {
+        window.location.href = "nhannhu.html";
+      }
+    }
+  </script>
+</body>
+</html>
